@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.pay.PaymentMapper">
+    <resultMap id="BaseResultMap" type="com.demo.entity.pay.Payment">
+        <!--
+        @mbggenerated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="relation_id" jdbcType="INTEGER" property="relationId" />
+        <result column="flow_numer" jdbcType="VARCHAR" property="flowNumer" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="callback_type" jdbcType="VARCHAR" property="callbackType" />
+        <result column="capital_channel" jdbcType="VARCHAR" property="capitalChannel" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="amount" jdbcType="DECIMAL" property="amount" />
+        <result column="cash_fee" jdbcType="DECIMAL" property="cashFee" />
+        <result column="coupon_scope" jdbcType="VARCHAR" property="couponScope" />
+        <result column="coupon_amount" jdbcType="DECIMAL" property="couponAmount" />
+        <result column="pay_date" jdbcType="TIMESTAMP" property="payDate" />
+        <result column="end_pay_date" jdbcType="TIMESTAMP" property="endPayDate" />
+        <result column="call_date" jdbcType="TIMESTAMP" property="callDate" />
+        <result column="success_date" jdbcType="TIMESTAMP" property="successDate" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+        <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+        <result column="update_user_id" jdbcType="INTEGER" property="updateUserId" />
+        <result column="update_user_name" jdbcType="VARCHAR" property="updateUserName" />
+        <result column="is_del" jdbcType="VARCHAR" property="isDel" />
+        <result column="prepay_id" jdbcType="VARCHAR" property="prepayId" />
+        <result column="spbill_create_ip" jdbcType="VARCHAR" property="spbillCreateIp" />
+        <result column="body" jdbcType="VARCHAR" property="body" />
+        <result column="nonce_str" jdbcType="VARCHAR" property="nonceStr" />
+        <result column="openid" jdbcType="VARCHAR" property="openid" />
+        <result column="goods_tag" jdbcType="VARCHAR" property="goodsTag" />
+        <result column="detail" jdbcType="VARCHAR" property="detail" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+        @mbggenerated
+        -->
+        id, relation_id, flow_numer, type, callback_type, capital_channel, status, amount, 
+        cash_fee, coupon_scope, coupon_amount, pay_date, end_pay_date, call_date, success_date, 
+        create_date, create_user_id, create_user_name, update_date, update_user_id, update_user_name, 
+        is_del, prepay_id, spbill_create_ip, body, nonce_str, openid, goods_tag, detail
+    </sql>
+    <select id="queryById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--
+        @mbggenerated
+        -->
+        select 
+        <include refid="Base_Column_List" />
+        from t_payment
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        <!--
+        @mbggenerated
+        -->
+        delete from t_payment
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="createEntity" parameterType="com.demo.entity.pay.Payment">
+        <selectKey resultType="_int" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_payment (id, relation_id, flow_numer, 
+            type, callback_type, capital_channel, 
+            status, amount, cash_fee, 
+            coupon_scope, coupon_amount, pay_date, 
+            end_pay_date, call_date, success_date, 
+            create_date, create_user_id, create_user_name, 
+            update_date, update_user_id, update_user_name, 
+            is_del, prepay_id, spbill_create_ip, 
+            body, nonce_str, openid, 
+            goods_tag, detail)
+        values (#{id,jdbcType=INTEGER}, #{relationId,jdbcType=INTEGER}, #{flowNumer,jdbcType=VARCHAR}, 
+            #{type,jdbcType=VARCHAR}, #{callbackType,jdbcType=VARCHAR}, #{capitalChannel,jdbcType=VARCHAR}, 
+            #{status,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, #{cashFee,jdbcType=DECIMAL}, 
+            #{couponScope,jdbcType=VARCHAR}, #{couponAmount,jdbcType=DECIMAL}, #{payDate,jdbcType=TIMESTAMP}, 
+            #{endPayDate,jdbcType=TIMESTAMP}, #{callDate,jdbcType=TIMESTAMP}, #{successDate,jdbcType=TIMESTAMP}, 
+            #{createDate,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, #{createUserName,jdbcType=VARCHAR}, 
+            #{updateDate,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=INTEGER}, #{updateUserName,jdbcType=VARCHAR}, 
+            #{isDel,jdbcType=VARCHAR}, #{prepayId,jdbcType=VARCHAR}, #{spbillCreateIp,jdbcType=VARCHAR}, 
+            #{body,jdbcType=VARCHAR}, #{nonceStr,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, 
+            #{goodsTag,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateEntity" parameterType="com.demo.entity.pay.Payment">
+        update t_payment
+        <set>
+            <if test="relationId != null">
+                relation_id = #{relationId,jdbcType=INTEGER},
+            </if>
+            <if test="flowNumer != null">
+                flow_numer = #{flowNumer,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="callbackType != null">
+                callback_type = #{callbackType,jdbcType=VARCHAR},
+            </if>
+            <if test="capitalChannel != null">
+                capital_channel = #{capitalChannel,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="cashFee != null">
+                cash_fee = #{cashFee,jdbcType=DECIMAL},
+            </if>
+            <if test="couponScope != null">
+                coupon_scope = #{couponScope,jdbcType=VARCHAR},
+            </if>
+            <if test="couponAmount != null">
+                coupon_amount = #{couponAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="payDate != null">
+                pay_date = #{payDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endPayDate != null">
+                end_pay_date = #{endPayDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="callDate != null">
+                call_date = #{callDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="successDate != null">
+                success_date = #{successDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="createUserName != null">
+                create_user_name = #{createUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                update_user_id = #{updateUserId,jdbcType=INTEGER},
+            </if>
+            <if test="updateUserName != null">
+                update_user_name = #{updateUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=VARCHAR},
+            </if>
+            <if test="prepayId != null">
+                prepay_id = #{prepayId,jdbcType=VARCHAR},
+            </if>
+            <if test="spbillCreateIp != null">
+                spbill_create_ip = #{spbillCreateIp,jdbcType=VARCHAR},
+            </if>
+            <if test="body != null">
+                body = #{body,jdbcType=VARCHAR},
+            </if>
+            <if test="nonceStr != null">
+                nonce_str = #{nonceStr,jdbcType=VARCHAR},
+            </if>
+            <if test="openid != null">
+                openid = #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsTag != null">
+                goods_tag = #{goodsTag,jdbcType=VARCHAR},
+            </if>
+            <if test="detail != null">
+                detail = #{detail,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.user.UserMapper">
+    <resultMap id="BaseResultMap" type="com.demo.entity.user.User">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="openid" jdbcType="VARCHAR" property="openid" />
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+        <result column="sex" jdbcType="VARCHAR" property="sex" />
+        <result column="province" jdbcType="VARCHAR" property="province" />
+        <result column="city" jdbcType="VARCHAR" property="city" />
+        <result column="country" jdbcType="VARCHAR" property="country" />
+        <result column="headimgurl" jdbcType="VARCHAR" property="headimgurl" />
+        <result column="privilege" jdbcType="VARCHAR" property="privilege" />
+        <result column="unionid" jdbcType="VARCHAR" property="unionid" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+        <result column="is_del" jdbcType="VARCHAR" property="isDel" />
+    </resultMap>
+
+    <!-- 显示字段 -->
+    <sql id="Base_Column_List">
+        id, openid, nick_name, sex, province, city, country, headimgurl, privilege, unionid,
+        create_date, update_date, is_del
+    </sql>
+
+    <!-- 查询条件 -->
+    <sql id="queryColumn">
+        <where>
+
+        </where>
+    </sql>
+
+    <!-- 根据ID查询 -->
+    <select id="queryById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <!-- 根据ID删除 -->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from t_user
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <!-- 创建实体 -->
+    <insert id="createEntity" parameterType="com.demo.entity.user.User">
+        <selectKey resultType="_int" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_user (id, openid, nick_name,
+            sex, province, city, 
+            country, headimgurl, privilege, 
+            unionid, create_date, update_date, 
+            is_del)
+        values (#{id,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+            #{sex,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+            #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{privilege,jdbcType=VARCHAR}, 
+            #{unionid,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
+            #{isDel,jdbcType=VARCHAR})
+    </insert>
+
+    <!-- 更新实体 -->
+    <update id="updateEntity" parameterType="com.demo.entity.user.User">
+        update t_user
+        <set>
+            <if test="openid != null">
+                openid = #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                nick_name = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="country != null">
+                country = #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="headimgurl != null">
+                headimgurl = #{headimgurl,jdbcType=VARCHAR},
+            </if>
+            <if test="privilege != null">
+                privilege = #{privilege,jdbcType=VARCHAR},
+            </if>
+            <if test="unionid != null">
+                unionid = #{unionid,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!-- 根据openid查询用户信息 -->
+    <select id="queryByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from t_user
+        where openid = #{openid,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

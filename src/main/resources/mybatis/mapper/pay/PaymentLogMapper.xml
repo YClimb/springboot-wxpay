@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.pay.PaymentLogMapper">
+    <resultMap id="BaseResultMap" type="com.demo.entity.pay.PaymentLog">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="payment_id" jdbcType="INTEGER" property="paymentId" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="return_code" jdbcType="VARCHAR" property="returnCode" />
+        <result column="return_msg" jdbcType="VARCHAR" property="returnMsg" />
+        <result column="nonce_str" jdbcType="VARCHAR" property="nonceStr" />
+        <result column="sign" jdbcType="VARCHAR" property="sign" />
+        <result column="result_code" jdbcType="VARCHAR" property="resultCode" />
+        <result column="err_code" jdbcType="VARCHAR" property="errCode" />
+        <result column="err_code_des" jdbcType="VARCHAR" property="errCodeDes" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+        <result column="result_map" jdbcType="VARCHAR" property="resultMap" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, payment_id, remark, return_code, return_msg, nonce_str, sign, result_code, err_code,
+        err_code_des, create_date, create_user_id, result_map
+    </sql>
+
+    <select id="queryById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_payment_log
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from t_payment_log
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="createEntity" parameterType="com.demo.entity.pay.PaymentLog">
+        <selectKey resultType="_int" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_payment_log (id, payment_id, remark,
+            return_code, return_msg, nonce_str, 
+            sign, result_code, err_code, 
+            err_code_des, create_date, create_user_id, 
+            result_map)
+        values (#{id,jdbcType=INTEGER}, #{paymentId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+            #{returnCode,jdbcType=VARCHAR}, #{returnMsg,jdbcType=VARCHAR}, #{nonceStr,jdbcType=VARCHAR}, 
+            #{sign,jdbcType=VARCHAR}, #{resultCode,jdbcType=VARCHAR}, #{errCode,jdbcType=VARCHAR}, 
+            #{errCodeDes,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, 
+            #{resultMap,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateEntity" parameterType="com.demo.entity.pay.PaymentLog">
+        update t_payment_log
+        <set>
+            <if test="paymentId != null">
+                payment_id = #{paymentId,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="returnCode != null">
+                return_code = #{returnCode,jdbcType=VARCHAR},
+            </if>
+            <if test="returnMsg != null">
+                return_msg = #{returnMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="nonceStr != null">
+                nonce_str = #{nonceStr,jdbcType=VARCHAR},
+            </if>
+            <if test="sign != null">
+                sign = #{sign,jdbcType=VARCHAR},
+            </if>
+            <if test="resultCode != null">
+                result_code = #{resultCode,jdbcType=VARCHAR},
+            </if>
+            <if test="errCode != null">
+                err_code = #{errCode,jdbcType=VARCHAR},
+            </if>
+            <if test="errCodeDes != null">
+                err_code_des = #{errCodeDes,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="resultMap != null">
+                result_map = #{resultMap,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
